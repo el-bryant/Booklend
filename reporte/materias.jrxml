@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="materias" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b7ff3385-03d0-4ad8-b053-1c0b0314ca98">
+	<property name="ireport.zoom" value="1.2100000000000015"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<queryString>
+		<![CDATA[SELECT
+     materia."mat_id" AS materia_mat_id,
+     materia."nombre" AS materia_nombre
+FROM
+     "public"."materia" materia
+ORDER BY
+materia."nombre"]]>
+	</queryString>
+	<field name="materia_mat_id" class="java.lang.Integer"/>
+	<field name="materia_nombre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="139" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="7a7656e0-e6e8-4d9c-93b5-3a2679d2ffd9" style="Column header" x="0" y="114" width="141" height="25" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Yu Gothic UI" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="393a1b86-3600-48a6-9bc1-5f5ee56cbfd7" style="Column header" x="141" y="114" width="413" height="25" forecolor="#000000"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Yu Gothic UI" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="28b1656f-b3dc-41ac-afe8-629259ac7c91" mode="Opaque" x="461" y="0" width="92" height="98"/>
+				<imageExpression><![CDATA["cherry.jpg"]]></imageExpression>
+			</image>
+			<frame>
+				<reportElement uuid="40711113-3133-41ca-9343-f23b61580f97" mode="Opaque" x="0" y="66" width="451" height="32" forecolor="#000000" backcolor="#003366"/>
+				<staticText>
+					<reportElement uuid="361aa652-add1-4f19-ae5d-07bedbb805bd" style="SubTitle" x="220" y="0" width="231" height="32" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Brush Script MT" size="22" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Listado de materias ]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement uuid="56c9951a-e9f8-46e2-8ba5-adfb65c626eb" mode="Opaque" x="0" y="0" width="451" height="57" backcolor="#6699FF"/>
+				<staticText>
+					<reportElement uuid="762207c2-8fd8-4aa3-a105-9517ce817d34" style="Title" x="0" y="0" width="451" height="57"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="24" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Biblioteca Municipal Emiliano Niño Pastor]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<frame>
+				<reportElement uuid="43599e39-492a-43ae-94e1-dae3194a0913" style="Row" mode="Opaque" x="0" y="0" width="555" height="18"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="98845fb2-d2aa-484a-a050-fcc30620fcad" style="Detail" positionType="Float" x="0" y="0" width="141" height="18"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{materia_mat_id}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="1a12fee0-9b00-44e4-8a39-5e2599a8f1ea" style="Detail" positionType="Float" x="141" y="0" width="413" height="18"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{materia_nombre}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement uuid="45f28139-40ea-4f57-a1f5-40b1923d50ed" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement uuid="60953c05-f369-47e9-8f96-c6305fb22977" mode="Opaque" x="0" y="1" width="555" height="24" forecolor="#D0B48E" backcolor="#000000"/>
+				<textField evaluationTime="Report">
+					<reportElement uuid="49bb9b16-cde0-43c1-b03c-d8757a9b864d" style="Column header" x="513" y="0" width="40" height="20" forecolor="#FFFFFF"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="a5be7459-c8df-4f3a-84b2-7e53947aa8ec" style="Column header" x="433" y="0" width="80" height="20" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement uuid="394534e4-c488-48bb-9462-55ced00b7b62" style="Column header" x="2" y="1" width="197" height="20" forecolor="#FFFFFF"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="libros_prestados" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fd653424-62fe-46af-aa15-7bc219fd52d1">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<queryString>
+		<![CDATA[SELECT DISTINCT
+     libro."lib_id" AS libro_lib_id,
+     libro."titulo" AS libro_titulo,
+     usuario.apellidos||' '||usuario.nombres AS usuario_nombres,
+     to_char(prestamo.fprestamo,'YYYY/MM/DD') AS prestamo_fprestamo
+FROM
+     "detalle_prestamo" detalle_prestamo INNER JOIN "libro" libro ON detalle_prestamo."lib_id" = libro."lib_id",
+     "prestamo" prestamo INNER JOIN "usuario" usuario ON prestamo."usu_dni" = usuario."usu_dni"
+     INNER JOIN "public"."personal" personal ON prestamo."pers_dni" = personal."pers_dni"]]>
+	</queryString>
+	<field name="libro_lib_id" class="java.lang.String"/>
+	<field name="libro_titulo" class="java.lang.String"/>
+	<field name="usuario_nombres" class="java.lang.String"/>
+	<field name="prestamo_fprestamo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="132" splitType="Stretch">
+			<image>
+				<reportElement uuid="6e4d132b-ac4d-48e4-8021-20dc9ea58ef9" x="456" y="0" width="99" height="132"/>
+				<imageExpression><![CDATA["cherry.jpg"]]></imageExpression>
+			</image>
+			<frame>
+				<reportElement uuid="fb5b2ff0-f6fd-4aff-b328-d8132b67c5de" mode="Opaque" x="0" y="0" width="451" height="54" backcolor="#6699FF"/>
+				<staticText>
+					<reportElement uuid="36f06450-a239-4190-9b46-35132d1b1f2a" style="Title" x="0" y="0" width="451" height="53" backcolor="#99CCFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="24" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Biblioteca Municipal Emiliano Niño Pastor]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement uuid="23e6a7ce-b769-4bcc-a540-9c0f6d9debed" mode="Opaque" x="0" y="66" width="451" height="32" forecolor="#000000" backcolor="#003366"/>
+				<staticText>
+					<reportElement uuid="ef5a68f6-2eb4-4f85-a26f-c38a2e4c277e" style="SubTitle" x="199" y="0" width="252" height="32" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Brush Script MT" size="22" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Listado de préstamos]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="e7438726-5b36-44b1-b158-678c5e1eb22c" style="Column header" x="0" y="7" width="138" height="18" forecolor="#000000"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9ebe97eb-ef09-4470-9e20-b05598e5d3a4" style="Column header" x="138" y="7" width="138" height="18" forecolor="#000000"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Título]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2db38862-2648-41d7-9ff1-875fd0c2b37f" style="Column header" x="276" y="7" width="138" height="18" forecolor="#000000"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Usuario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bb4cfd90-fe5b-4762-8bfe-72d67afaa578" style="Column header" x="414" y="7" width="138" height="18" forecolor="#000000"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<frame>
+				<reportElement uuid="51cc4dfe-8161-4c75-81f6-5edef89da150" style="Row" mode="Opaque" x="0" y="0" width="555" height="18"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="08c0101d-720b-4422-816b-7232f8da9d45" style="Detail" positionType="Float" x="0" y="0" width="138" height="18"/>
+					<textElement>
+						<font size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{libro_lib_id}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="bd6c185d-02ad-49c1-8b27-bf96d3bbe85a" style="Detail" positionType="Float" x="138" y="0" width="138" height="18"/>
+					<textElement>
+						<font size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{libro_titulo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="c60197d7-72a4-469e-b310-4a919acefa4e" style="Detail" positionType="Float" x="276" y="0" width="138" height="18"/>
+					<textElement>
+						<font size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{usuario_nombres}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="2bc644f9-0bcc-4d53-a816-16aad8abb794" style="Detail" positionType="Float" x="414" y="0" width="138" height="18"/>
+					<textElement>
+						<font size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{prestamo_fprestamo}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement uuid="b4e18ba1-c8c0-4237-949c-acd641f268f2" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement uuid="33c8d878-de8e-43ad-afc6-c694714ee5f4" mode="Opaque" x="0" y="1" width="555" height="24" forecolor="#D0B48E" backcolor="#000000"/>
+				<textField evaluationTime="Report">
+					<reportElement uuid="ceac8776-c640-4a73-bc2e-96b3468ba4cc" style="Column header" x="513" y="0" width="40" height="20" forecolor="#FFFFFF"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="e7c56f03-bbe6-4d08-b7c5-0ca53a2d5bea" style="Column header" x="433" y="0" width="80" height="20" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement uuid="ca9b2778-b2a9-4e66-90fd-a3e5acbf34cb" style="Column header" x="2" y="1" width="197" height="20" forecolor="#FFFFFF"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
